@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body>
+<script>
+  const A = [4, 1, 7, 0, 2, 6, 8];
+  const left  = i => 2 * i + 1;
+  const right = i => 2 * i + 2;
+
+  // Mỗi hàm trả về danh sách CHỈ SỐ nút theo thứ tự duyệt
+  function preorder(A, k, out = []) {
+    if (k < A.length && A[k] !== null) {
+      out.push(k);
+      preorder(A, left(k), out);
+      preorder(A, right(k), out);
+    }
+    return out;
+  }
+  function inorder(A, k, out = []) {
+    if (k < A.length && A[k] !== null) {
+      inorder(A, left(k), out);
+      out.push(k);
+      inorder(A, right(k), out);
+    }
+    return out;
+  }
+  function postorder(A, k, out = []) {
+    if (k < A.length && A[k] !== null) {
+      postorder(A, left(k), out);
+      postorder(A, right(k), out);
+      out.push(k);
+    }
+    return out;
+  }
+
+  const giaTri = ds => ds.map(k => A[k]).join(" ");
+  console.log("Trước:", giaTri(preorder(A, 0)));
+  console.log("Giữa :", giaTri(inorder(A, 0)));
+  console.log("Sau  :", giaTri(postorder(A, 0)));
+</script>
+</body></html>
